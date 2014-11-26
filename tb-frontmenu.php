@@ -29,7 +29,7 @@ class TBFrontmenu {
 	 */
 	function __construct() {
 
-		load_plugin_textdomain( 'tb_etf', '', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'tb_frontmenu', '', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		add_action( 'after_setup_theme'						, array( $this, 'setup' ) );
 		add_action( 'wp_enqueue_scripts'					, array( $this, 'front_scripts' ) );
@@ -60,9 +60,9 @@ class TBFrontmenu {
 	 */
 	function front_scripts() {
 
-		wp_enqueue_style( $this->plugin_vars['handle'], plugins_url( 'style.css', __FILE__ ), array( 'dashicons' ), '1.0', 'screen' );
-		wp_enqueue_style( $this->plugin_vars['handle'] . '-responsive', plugins_url( 'responsive.css', __FILE__ ), array( 'dashicons' ), '1.0', 'screen and (max-width: ' . self::$plugin_options['threshold'] . 'px)' );
-		wp_enqueue_script( $this->plugin_vars['handle'] . '-script', plugins_url( 'script.js', __FILE__ ), array( 'jquery', 'jquery-effects-core', 'hoverIntent' ) );
+		wp_enqueue_style( $this->plugin_vars['handle'], plugins_url( 'css/front-style.css', __FILE__ ), array( 'dashicons' ), '1.0', 'screen' );
+		wp_enqueue_style( $this->plugin_vars['handle'] . '-responsive', plugins_url( 'css/front-responsive.css', __FILE__ ), array( 'dashicons' ), '1.0', 'screen and (max-width: ' . self::$plugin_options['threshold'] . 'px)' );
+		wp_enqueue_script( $this->plugin_vars['handle'] . '-script', plugins_url( 'js/front-script.js', __FILE__ ), array( 'jquery', 'jquery-effects-core', 'hoverIntent' ) );
 		// Now we can localize the script with our data.
 		$data = array(
 			'threshold' => self::$plugin_options['threshold'],
@@ -149,7 +149,7 @@ class TBFrontmenu {
 		// Register our individual settings fields.
 		add_settings_field(
 			'layout',											// Unique identifier for the field for this section
-			__( 'layout', 'tb_etf' ).'<div id="frontmenu-alert"></div>',							// Setting field label
+			__( 'layout', 'tb_frontmenu' ).'<div id="frontmenu-alert"></div>',							// Setting field label
 			array( $this, 'settings_field_layout' ),			// Function that renders the settings field
 			'plugin_options',									// Menu slug, used to uniquely identify the page; see add_page()
 			'general'											// Settings section. Same as the first argument in the add_settings_section() above
@@ -158,7 +158,7 @@ class TBFrontmenu {
 		// Register our individual settings fields.
 		add_settings_field(
 			'margin',											// Unique identifier for the field for this section
-			__( 'margin between blocks (px)', 'tb_etf' ),		// Setting field label
+			__( 'margin between blocks (px)', 'tb_frontmenu' ),		// Setting field label
 			array( $this, 'settings_field_margin' ),			// Function that renders the settings field
 			'plugin_options',									// Menu slug, used to uniquely identify the page; see add_page()
 			'general'											// Settings section. Same as the first argument in the add_settings_section() above
@@ -167,7 +167,7 @@ class TBFrontmenu {
 		// Register our individual settings fields.
 		add_settings_field(
 			'items',											// Unique identifier for the field for this section
-			__( 'items', 'tb_etf' ),							// Setting field label
+			__( 'items', 'tb_frontmenu' ),							// Setting field label
 			array( $this, 'settings_field_items' ),				// Function that renders the settings field
 			'plugin_options',									// Menu slug, used to uniquely identify the page; see add_page()
 			'general'											// Settings section. Same as the first argument in the add_settings_section() above
@@ -176,7 +176,7 @@ class TBFrontmenu {
 		// Register our individual settings fields.
 		add_settings_field(
 			'visibility',										// Unique identifier for the field for this section
-			__( 'visibility', 'tb_etf' ),						// Setting field label
+			__( 'visibility', 'tb_frontmenu' ),						// Setting field label
 			array( $this, 'settings_field_visibility' ),		// Function that renders the settings field
 			'plugin_options',									// Menu slug, used to uniquely identify the page; see add_page()
 			'general'											// Settings section. Same as the first argument in the add_settings_section() above
@@ -185,7 +185,7 @@ class TBFrontmenu {
 		// Register our individual settings fields.
 		add_settings_field(
 			'threshold',										// Unique identifier for the field for this section
-			__( 'responsive threshold', 'tb_etf' ),				// Setting field label
+			__( 'responsive threshold', 'tb_frontmenu' ),				// Setting field label
 			array( $this, 'settings_field_threshold' ),				// Function that renders the settings field
 			'plugin_options',									// Menu slug, used to uniquely identify the page; see add_page()
 			'general'											// Settings section. Same as the first argument in the add_settings_section() above
@@ -201,7 +201,7 @@ class TBFrontmenu {
 
 		wp_enqueue_media();
 
-		wp_enqueue_script( $this->plugin_vars['handle'] . '-options-page-script', plugins_url( 'admin-script.js', __FILE__ ), array( 'jquery', 'jquery-ui-slider', 'jquery-ui-accordion', 'wp-color-picker' ), '1.0', true );
+		wp_enqueue_script( $this->plugin_vars['handle'] . '-options-page-script', plugins_url( 'js/admin-script.js', __FILE__ ), array( 'jquery', 'jquery-ui-slider', 'jquery-ui-accordion', 'wp-color-picker' ), '1.0', true );
 
 		// Now we can localize the script with our data.
 		$data = array(
@@ -209,9 +209,9 @@ class TBFrontmenu {
 			'image_height'			=> $this->plugin_vars['image_size']['height'],
 			'slider_value'			=> self::$plugin_options['margin'],
 			'admin_menu_href'		=> get_admin_url( '', 'nav-menus.php?action=locations' ),
-			'assign_menu'			=> __( 'Menu not assigned', 'tb_etf' ),
-			'confirm_to_defaults'	=> __( 'Are you really sure you want to revert all the settings to their default values?', 'tb_etf' ),
-			'small_image_alert'		=> sprintf( __( 'image must be bigger than %s px', 'tb_etf' ), $this->plugin_vars['image_size']['width'] . 'x' . $this->plugin_vars['image_size']['height'] ),
+			'assign_menu'			=> __( 'Menu not assigned', 'tb_frontmenu' ),
+			'confirm_to_defaults'	=> __( 'Are you really sure you want to revert all the settings to their default values?', 'tb_frontmenu' ),
+			'small_image_alert'		=> sprintf( __( 'image must be bigger than %s px', 'tb_frontmenu' ), $this->plugin_vars['image_size']['width'] . 'x' . $this->plugin_vars['image_size']['height'] ),
 		);
 		wp_localize_script( $this->plugin_vars['handle'] . '-options-page-script', $this->plugin_vars['slug'] . '_data', $data );
 
@@ -223,8 +223,8 @@ class TBFrontmenu {
 	 */
 	function options_page_style() {
 
-		wp_enqueue_style( $this->plugin_vars['handle'] . '-options-page-style', plugins_url( 'admin-style.css', __FILE__ ), array( 'wp-color-picker' ) );
-		wp_enqueue_style( 'jquery-ui-slider', plugins_url( 'jquery-ui.structure.css', __FILE__ ) );
+		wp_enqueue_style( $this->plugin_vars['handle'] . '-options-page-style', plugins_url( 'css/admin-style.css', __FILE__ ), array( 'wp-color-picker' ) );
+		wp_enqueue_style( 'jquery-ui-slider', plugins_url( 'css/admin-jquery-ui.structure.css', __FILE__ ) );
 
 	}
 
@@ -295,22 +295,22 @@ class TBFrontmenu {
 		?>
 		<label for="show-on-front">
 			<input type="checkbox" value="1" name="<?php echo $this->plugin_vars['option_key']; ?>[show_on_front]" id="show-on-front" <?php checked( self::$plugin_options['show_on_front'] ); ?> />
-			<?php _e( 'front page', 'tb_etf' );  ?>
+			<?php _e( 'front page', 'tb_frontmenu' );  ?>
 		</label>
 		<br />
 		<label for="show-on-blog">
 			<input type="checkbox" value="1" name="<?php echo $this->plugin_vars['option_key']; ?>[show_on_blog]" id="show-on-blog" <?php checked( self::$plugin_options['show_on_blog'] ); ?> />
-			<?php _e( 'blog', 'tb_etf' );  ?>
+			<?php _e( 'blog', 'tb_frontmenu' );  ?>
 		</label>
 		<br />
 		<label for="show-on-page">
 			<input type="checkbox" value="1" name="<?php echo $this->plugin_vars['option_key']; ?>[show_on_page]" id="show-on-page" <?php checked( self::$plugin_options['show_on_page'] ); ?> />
-			<?php _e( 'single page', 'tb_etf' );  ?>
+			<?php _e( 'single page', 'tb_frontmenu' );  ?>
 		</label>
 		<br />
 		<label for="show-on-post">
 			<input type="checkbox" value="1" name="<?php echo $this->plugin_vars['option_key']; ?>[show_on_post]" id="show-on-post" <?php checked( self::$plugin_options['show_on_post'] ); ?> />
-			<?php _e( 'single post', 'tb_etf' );  ?>
+			<?php _e( 'single post', 'tb_frontmenu' );  ?>
 		</label>
 		<?php
 	}
@@ -347,10 +347,10 @@ class TBFrontmenu {
 			?>
 		</div>
 		<input class="hide-if-js" type="text" name="<?php echo $this->plugin_vars['option_key']; ?>[layout]" id="menu-layout" value="<?php echo self::$plugin_options['layout']; ?>" />
-		<span class="label hide-if-js"><?php _e( 'comma-separated value of "2" and "3"', 'tb_etf' ); ?></span>
+		<span class="label hide-if-js"><?php _e( 'comma-separated value of "2" and "3"', 'tb_frontmenu' ); ?></span>
 		<p id="frontmenu-add" class="hide-if-no-js">
-			<span class="button-secondary" id="button-add-row2"><?php _e( '2-blocks row', 'tb_etf' ) ?></span>
-			<span class="button-secondary" id="button-add-row3"><?php _e( '3-blocks row', 'tb_etf' ) ?></span>
+			<span class="button-secondary" id="button-add-row2"><?php _e( '2-blocks row', 'tb_frontmenu' ) ?></span>
+			<span class="button-secondary" id="button-add-row3"><?php _e( '3-blocks row', 'tb_frontmenu' ) ?></span>
 		</p>
 		<?php
 	}
@@ -365,7 +365,7 @@ class TBFrontmenu {
 		<input name="<?php echo $this->plugin_vars['option_key']; ?>[threshold]" type="text" id="<?php echo $this->plugin_vars['option_key']; ?>-threshold" value="<?php echo $value; ?>" />
 		<label for="test-threshold">
 			<input type="checkbox" value="1" name="<?php echo $this->plugin_vars['option_key']; ?>[test_mode]" id="test-threshold" <?php checked( self::$plugin_options['test_mode'] ); ?> />
-			<?php _e( 'test_mode', 'tb_etf' );  ?>
+			<?php _e( 'test_mode', 'tb_frontmenu' );  ?>
 		</label>
 		<?php
 	}
@@ -399,7 +399,7 @@ class TBFrontmenu {
 
 		} else {
 
-			$menu_list = '<div><p class="hide-if-no-js">[' . __( 'No items', 'tb_etf' ) . ']</p><p class="hide-if-js"><a href="' . get_admin_url( '', 'nav-menus.php?action=locations' ) . '">' . __( 'Menu not assigned', 'tb_etf' ) . '</a></p></div>';
+			$menu_list = '<div><p class="hide-if-no-js">[' . __( 'No items', 'tb_frontmenu' ) . ']</p><p class="hide-if-js"><a href="' . get_admin_url( '', 'nav-menus.php?action=locations' ) . '">' . __( 'Menu not assigned', 'tb_frontmenu' ) . '</a></p></div>';
 
 		}
 		// $menu_list now ready to output
@@ -432,24 +432,24 @@ class TBFrontmenu {
 		$output = '';
 
 		
-		$output .= '<span class="label">' . __( 'background', 'tb_etf' ) . '</span>';
+		$output .= '<span class="label">' . __( 'background', 'tb_frontmenu' ) . '</span>';
 		$output .= '<div class="setting">';
 		$output .= '<input name="' . $this->plugin_vars['option_key'] . '[items][' . $item_id . '][bg_color]" class="plugin_option_colorpicker to-background" type="text" id="' . $this->plugin_vars['option_key'] . '-items-' . $item_id . '-bgcolor" value="' . $bg_color . '" data-default-color="' . self::$plugin_options['items_default']['bg_color'] . '" />';
-		$output .= '<span class="description hide-if-js">' . __( 'Default' , 'tb_etf' ) . ': ' . self::$plugin_options['items_default']['bg_color'] . '</span>';
+		$output .= '<span class="description hide-if-js">' . __( 'Default' , 'tb_frontmenu' ) . ': ' . self::$plugin_options['items_default']['bg_color'] . '</span>';
 		$output .= '</div>';
 
-		$output .= '<span class="label">' . __( 'text', 'tb_etf' ) . '</span>';
+		$output .= '<span class="label">' . __( 'text', 'tb_frontmenu' ) . '</span>';
 		$output .= '<div class="setting">';
 		$output .= '<input name="' . $this->plugin_vars['option_key'] . '[items][' . $item_id . '][txt_color]" class="plugin_option_colorpicker to-text" type="text" id="' . $this->plugin_vars['option_key'] . '-items-' . $item_id . '-txtcolor" value="' . $txt_color . '" data-default-color="' . self::$plugin_options['items_default']['txt_color'] . '" />';
-		$output .= '<span class="description hide-if-js">' . __( 'Default' , 'tb_etf' ) . ': ' . self::$plugin_options['items_default']['txt_color'] . '</span>';
+		$output .= '<span class="description hide-if-js">' . __( 'Default' , 'tb_frontmenu' ) . ': ' . self::$plugin_options['items_default']['txt_color'] . '</span>';
 		$output .= '</div>';
 
-		$output .= '<span class="label">' . __( 'image', 'tb_etf' ) . '</span>';
+		$output .= '<span class="label">' . __( 'image', 'tb_frontmenu' ) . '</span>';
 		$output .= '<div class="setting">';
 		$output .= '<input placeholder="ID" name="' . $this->plugin_vars['option_key'] . '[items][' . $item_id . '][img_id]" class="hide-if-js plugin_option_imageid" type="text" id="' . $this->plugin_vars['option_key'] . '-items-' . $item_id . '-txtcolor" value="' . $img_id . '" />';
 		$output .= '<div class="thumbnail-container">' . $image . '</div>';
-		$output .= '<a id="' . $this->plugin_vars['option_key'] . '-items-' . $item_id . '-imgid" class="button hide-if-no-js choose-featured-from-library" data-choose="' . esc_attr__( 'Choose Image' , 'tb_etf' ) . '" data-update="' . esc_attr__( 'Set Image' , 'tb_etf' ) . '">' . __( 'Choose Image' , 'tb_etf' ) . '</a>';
-		$output .= '<a href="javascript:void(0)" id="' . $this->plugin_vars['option_key'] . '-items-' . $item_id . '-remove" class="hide-if-no-js remove-img-id" >' . __( 'Remove' , 'tb_etf' ) . '</a>';
+		$output .= '<a id="' . $this->plugin_vars['option_key'] . '-items-' . $item_id . '-imgid" class="button hide-if-no-js choose-featured-from-library" data-choose="' . esc_attr__( 'Choose Image' , 'tb_frontmenu' ) . '" data-update="' . esc_attr__( 'Set Image' , 'tb_frontmenu' ) . '">' . __( 'Choose Image' , 'tb_frontmenu' ) . '</a>';
+		$output .= '<a href="javascript:void(0)" id="' . $this->plugin_vars['option_key'] . '-items-' . $item_id . '-remove" class="hide-if-no-js remove-img-id" >' . __( 'Remove' , 'tb_frontmenu' ) . '</a>';
 		$output .= '</div>';
 
 		$output = '<div class="frontmenu-tools' . $has_featured . '">' . $output . '</div>';
@@ -469,8 +469,8 @@ class TBFrontmenu {
 			<h1><?php echo $this->plugin_vars['name']; ?></h1>
 
 			<h2 id="tab-selector" class="nav-tab-wrapper">
-				<a class="nav-tab nav-tab-active" href="#plugin-settings"><?php _e( 'Settings' , 'tb_etf' ); ?></a>
-				<a class="nav-tab" href="#plugin-info"><?php _e( 'Info' , 'tb_etf' ); ?></a>
+				<a class="nav-tab nav-tab-active" href="#plugin-settings"><?php _e( 'Settings' , 'tb_frontmenu' ); ?></a>
+				<a class="nav-tab" href="#plugin-info"><?php _e( 'Info' , 'tb_frontmenu' ); ?></a>
 			</h2>
 
 			<div id="tabs">
@@ -480,11 +480,11 @@ class TBFrontmenu {
 					<?php
 						// settings have been updated
 						if ( isset( $_GET['settings-updated'] ) ) {
-							echo '<div class="updated inline"><p><strong>' . __( 'Settings updated', 'tb_etf' ) . '</strong></p></div>';
+							echo '<div class="updated inline"><p><strong>' . __( 'Settings updated', 'tb_frontmenu' ) . '</strong></p></div>';
 						}
 						// settings have been deleted
 						if ( isset( $_GET[$this->plugin_vars['slug'] . '_erase'] ) ) {
-							echo '<div class="updated inline"><p><strong>' . __( 'Defaults values loaded', 'tb_etf' ) . '</strong></p></div>';
+							echo '<div class="updated inline"><p><strong>' . __( 'Defaults values loaded', 'tb_frontmenu' ) . '</strong></p></div>';
 						}
 					?>
 
@@ -494,7 +494,7 @@ class TBFrontmenu {
 							settings_fields( $this->plugin_vars['option_key'] );
 							do_settings_sections( 'plugin_options' );
 						?>
-						<div class="note"><p><?php _e( 'insert this code in your theme', 'tb_etf' ); ?> <code>&lt;?php do_action('tb_frontmenu_display'); ?&gt;</code></p></div>
+						<div class="note"><p><?php _e( 'insert this code in your theme', 'tb_frontmenu' ); ?> <code>&lt;?php do_action('tb_frontmenu_display'); ?&gt;</code></p></div>
 						<hr>
 						<p>
 							<?php
@@ -507,7 +507,7 @@ class TBFrontmenu {
 										$this->plugin_vars['slug'] . '_erase'	=> '1',
 									);
 									?>
-										<a class="button" id="to-defaults" href="<?php echo add_query_arg( $arr_params, get_admin_url( '', 'themes.php' ) ); ?>" target="_self"><?php _e( 'Back to defaults' , 'tb_etf' ); ?></a>
+										<a class="button" id="to-defaults" href="<?php echo add_query_arg( $arr_params, get_admin_url( '', 'themes.php' ) ); ?>" target="_self"><?php _e( 'Back to defaults' , 'tb_frontmenu' ); ?></a>
 									<?php
 								}
 							?>
