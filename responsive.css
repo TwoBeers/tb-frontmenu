@@ -1,0 +1,41 @@
+/**
+ * TB FrontMenu - v1.0
+ *
+ * https://github.com/TwoBeers/tb-frontmenu
+ *
+ * Copyright 2014 TwoBeers.net http://www.twobeers.net/
+ */
+
+ul#tb-frontmenu > li.menu-item {
+	clear: both;
+	float: none;
+	margin: 0 auto;
+	width: 100%;
+	padding-left: 0;
+	padding-right: 0;
+}
+#tb-frontmenu .menu-item-has-children .sub-menu-toggler {
+	display: block;
+}
+#tb-frontmenu.js .menu-item-has-children .top-item-container > a {
+	margin-right: 40px;
+	border-right: 1px solid;
+}
+#tb-frontmenu .menu-item-has-children.dark .top-item-container > a {
+	border-color: rgba( 255, 255, 255, 0.2 );
+}
+#tb-frontmenu .menu-item-has-children.light .top-item-container > a {
+	border-color: rgba( 0, 0, 0, 0.2 );
+}
+#tb-frontmenu .sub-menu {
+	position: relative;
+}
+#tb-frontmenu.no-js .sub-menu {
+	display: block;
+}
+#tb-frontmenu.no-js .featured-container {
+	display: none;
+}
+#tb-frontmenu > li.row-last.menu-item-last {
+	padding-bottom: 0;
+}

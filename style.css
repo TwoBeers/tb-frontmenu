@@ -1,0 +1,134 @@
+/**
+ * TB FrontMenu - v1.0
+ *
+ * https://github.com/TwoBeers/tb-frontmenu
+ *
+ * Copyright 2014 TwoBeers.net http://www.twobeers.net/
+ */
+
+#tb-frontmenu {
+	margin: 0;
+	padding: 0;
+	font-family:verdana;
+	list-style: none outside none;
+	display: block !important;
+}
+#tb-frontmenu:after {
+	content:'';
+	display: block;
+	clear: both;
+}
+#tb-frontmenu > li {
+	box-sizing: border-box;
+	display: block;
+	float: left;
+	margin: 0;
+	padding: 3px;
+}
+#tb-frontmenu > li.row-first {
+}
+#tb-frontmenu > li.row-last {
+	padding-bottom: 0;
+}
+#tb-frontmenu .top-item-container{
+	position: relative;
+}
+#tb-frontmenu a{
+	color: inherit;
+	padding: 10px;
+	display: block;
+	text-decoration: none;
+}
+#tb-frontmenu a:hover{
+	opacity: .7;
+	filter: alpha(opacity=70); /* For IE8 and earlier */
+}
+#tb-frontmenu .sub-menu {
+	background: inherit;
+	box-sizing: border-box;
+	display: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	width: 100% !important;
+	z-index: 10;
+	border: none;
+	box-shadow: none;
+	left: 0;
+	list-style: none outside none;
+}
+#tb-frontmenu .sub-menu li {
+	border-bottom: 1px solid;
+}
+#tb-frontmenu .sub-menu li:first-child {
+	border-top: 1px solid;
+}
+#tb-frontmenu .sub-menu.not-extended li:last-child {
+	border-bottom: none;
+}
+#tb-frontmenu .dark .sub-menu li {
+	border-color: rgba( 255, 255, 255, 0.2 );
+}
+#tb-frontmenu .light .sub-menu li {
+	border-color: rgba( 0, 0, 0, 0.2 );
+}
+#tb-frontmenu .top-item-container > a:hover + .sub-menu,
+#tb-frontmenu .sub-menu:hover {
+	display: block;
+}
+#tb-frontmenu > li.layout-2-1,
+#tb-frontmenu > li.layout-2-2 {
+	width: 50%;
+}
+#tb-frontmenu > li.layout-3-1,
+#tb-frontmenu > li.layout-3-2,
+#tb-frontmenu > li.layout-3-3 {
+	width: 33.333%;
+}
+#tb-frontmenu > li.layout-2-2,
+#tb-frontmenu > li.layout-3-3 {
+	float: right;
+}
+#tb-frontmenu > li.layout-2-1,
+#tb-frontmenu > li.layout-3-1 {
+	clear: left;
+}
+#tb-frontmenu .top-item-container > a {
+	font-size: 1.5em;
+	overflow: hidden;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+#tb-frontmenu img {
+	max-width: 100%;
+	height: auto;
+}
+#tb-frontmenu a:not([href]) {
+	cursor: default;
+}
+#tb-frontmenu .sub-menu-toggler {
+	color: inherit;
+	display: none;
+	font-size: 1.5em;
+	line-height: 1.5em;
+	height: 1.5em;
+	padding: 10px 0;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	top: 0;
+	width: 40px;
+	cursor: default;
+}
+#tb-frontmenu .sub-menu-toggler:hover{
+	opacity: .7;
+	filter: alpha(opacity=70); /* For IE8 and earlier */
+}
+#tb-frontmenu-windowsize {
+	padding: 10px;
+	background: #b7e0ff;
+	color: #000;
+	margin: 5px;
+	border: 1px solid #89ccff;
+}
