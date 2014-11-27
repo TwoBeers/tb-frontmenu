@@ -6,7 +6,7 @@
  * Author: Twobeers
  * Author URI: http://www.twobeers.net/
  * Version: 1.0
- * License: GNU General Public License, version 2
+ * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
@@ -185,7 +185,7 @@ class TBFrontmenu {
 		// Register our individual settings fields.
 		add_settings_field(
 			'threshold',										// Unique identifier for the field for this section
-			__( 'responsive threshold', 'tb_frontmenu' ),				// Setting field label
+			__( 'responsive threshold (px)', 'tb_frontmenu' ),				// Setting field label
 			array( $this, 'settings_field_threshold' ),				// Function that renders the settings field
 			'plugin_options',									// Menu slug, used to uniquely identify the page; see add_page()
 			'general'											// Settings section. Same as the first argument in the add_settings_section() above
@@ -260,7 +260,7 @@ class TBFrontmenu {
 			'margin'			=> 6,
 			'items_default'		=> array( 'bg_color' => '#000000', 'txt_color' => '#ffffff', 'img_id' => '' ),
 			'items'				=> array(),
-			'threshold'			=> 960,
+			'threshold'			=> 640,
 			'test_mode'			=> 0,
 		);
 
@@ -469,8 +469,8 @@ class TBFrontmenu {
 			<h1><?php echo $this->plugin_vars['name']; ?></h1>
 
 			<h2 id="tab-selector" class="nav-tab-wrapper">
-				<a class="nav-tab nav-tab-active" href="#plugin-settings"><?php _e( 'Settings' , 'tb_frontmenu' ); ?></a>
-				<a class="nav-tab" href="#plugin-info"><?php _e( 'Info' , 'tb_frontmenu' ); ?></a>
+				<a class="nav-tab nav-tab-active" href="#plugin-settings"><span class="dashicons dashicons-admin-settings"></span><?php _e( 'Settings' , 'tb_frontmenu' ); ?></a>
+				<a class="nav-tab" href="#plugin-info"><span class="dashicons dashicons-info"></span><?php _e( 'Info' , 'tb_frontmenu' ); ?></a>
 			</h2>
 
 			<div id="tabs">
@@ -543,7 +543,7 @@ class TBFrontmenu {
 		$readme = preg_replace( '/=== (.*?) ===/', '', $readme );
 		$readme = preg_replace( '/== (.*?) ==/', '<hr><h3>\\1</h3>', $readme );
 		$readme = preg_replace( '/= (.*?) =/', '<h4>\\1</h4>', $readme );
-		$readme = preg_replace( '/(Contributors:|Tags:|Requires at least:|Tested up to:|License:|License URI:)/', '<strong class="label">\\1</strong>', $readme );
+		$readme = preg_replace( '/(Contributors:|Tags:|Requires at least:|Tested up to:|License:|License URI:|Stable tag:)/', '<strong class="label">\\1</strong>', $readme );
 
 		echo balanceTags( $readme );
 
@@ -632,7 +632,7 @@ class TBFrontmenu {
 	/**
 	 * Create the custom css.
 	 */
-	function custom_css() {//round(1.95583, 2); 
+	function custom_css() {
 		?>
 
 	<style type="text/css">
@@ -646,20 +646,20 @@ class TBFrontmenu {
 			padding: 0 0 <?php echo absint( self::$plugin_options['margin'] ); ?>px <?php echo absint( self::$plugin_options['margin'] )/2; ?>px;
 		}
 		#tb-frontmenu > li.layout-3-1 {
-			padding: 0 <?php echo round( absint( self::$plugin_options['margin'] )/3*2 , 3 ); ?>px <?php echo absint( self::$plugin_options['margin'] ); ?>px 0;
+			padding: 0 <?php echo round( absint( self::$plugin_options['margin'] )/3*2 , 6 ); ?>px <?php echo absint( self::$plugin_options['margin'] ); ?>px 0;
 		}
 		#tb-frontmenu > li.layout-3-2 {
-			padding: 0 <?php echo round( absint( self::$plugin_options['margin'] )/3, 3 ); ?>px <?php echo absint( self::$plugin_options['margin'] ); ?>px;
+			padding: 0 <?php echo round( absint( self::$plugin_options['margin'] )/3, 6 ); ?>px <?php echo absint( self::$plugin_options['margin'] ); ?>px;
 		}
 		#tb-frontmenu > li.layout-3-3 {
-			padding: 0 0 <?php echo absint( self::$plugin_options['margin'] ); ?>px <?php echo round( absint( self::$plugin_options['margin'] )/3*2, 3 ); ?>px;
+			padding: 0 0 <?php echo absint( self::$plugin_options['margin'] ); ?>px <?php echo round( absint( self::$plugin_options['margin'] )/3*2, 6 ); ?>px;
 		}
 		#tb-frontmenu {
 			max-width: <?php echo absint( $this->plugin_vars['image_size']['width'] )*2; ?>px;
 			margin: 0 auto;
 		}
 		@media screen and (max-width: <?php echo absint( self::$plugin_options['threshold'] ); ?>px) {
-			#tb-frontmenu > li.row-last {
+			ul#tb-frontmenu > li.row-last {
 				padding: 0 0 <?php echo absint( self::$plugin_options['margin'] ); ?>px;
 			}
 		}
@@ -700,7 +700,7 @@ class TBFrontmenu_Walker extends Walker_Nav_Menu {
 			$classes[] = $this->get_el_layout( $counter );
 			$classes[] = $this->get_el_row( $counter );
 			$classes[] = 'top-item-' . $counter;
-			$classes[] = $this->contrast_color( TBFrontmenu::$plugin_options['items'][$item->ID]['bg_color'] );
+			$classes[] = $this->contrast_color( TBFrontmenu::$plugin_options['items'][$item->ID]['txt_color'] );
 			$counter++;
 		}
 
@@ -735,7 +735,7 @@ class TBFrontmenu_Walker extends Walker_Nav_Menu {
 		$output .= $indent . '<li' . $id . $class_names . '>' . $top_item_container;
 
 		$atts = array();
-		$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
+		$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : esc_attr( apply_filters( 'the_title', $item->title, $item->ID ) );
 		$atts['target'] = ! empty( $item->target )     ? $item->target     : '';
 		$atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
 		$atts['href']   = ! empty( $item->url )        ? $item->url        : '';
@@ -809,6 +809,7 @@ class TBFrontmenu_Walker extends Walker_Nav_Menu {
 	public function end_el( &$output, $item, $depth = 0, $args = array() ) {
 
 		$top_item_container = ( $depth ) ? '' : '<div class="featured-container">' . $this->get_el_thumb( $item ) . '</div></div>';
+
 		$output .= "$top_item_container</li>\n";
 
 	}

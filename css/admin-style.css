@@ -246,6 +246,10 @@ div.updated:before {
 table.form-table td {
 	padding-bottom: 45px;
 }
+.nav-tab .dashicons {
+	margin-right: 10px;
+	vertical-align: text-bottom;
+}
 h1 + br,
 h2 + br,
 h3 + br,

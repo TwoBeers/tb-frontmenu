@@ -27,7 +27,7 @@
 }
 #tb-frontmenu > li.row-first {
 }
-#tb-frontmenu > li.row-last {
+ul#tb-frontmenu > li.row-last {
 	padding-bottom: 0;
 }
 #tb-frontmenu .top-item-container{
@@ -51,7 +51,7 @@
 	padding: 0;
 	position: absolute;
 	width: 100% !important;
-	z-index: 10;
+	z-index: 100;
 	border: none;
 	box-shadow: none;
 	left: 0;
@@ -63,14 +63,14 @@
 #tb-frontmenu .sub-menu li:first-child {
 	border-top: 1px solid;
 }
-#tb-frontmenu .sub-menu.not-extended li:last-child {
+#tb-frontmenu .not-extended .sub-menu li:last-child {
 	border-bottom: none;
 }
 #tb-frontmenu .dark .sub-menu li {
-	border-color: rgba( 255, 255, 255, 0.2 );
+	border-color: rgba( 0, 0, 0, 0.2 );
 }
 #tb-frontmenu .light .sub-menu li {
-	border-color: rgba( 0, 0, 0, 0.2 );
+	border-color: rgba( 255, 255, 255, 0.2 );
 }
 #tb-frontmenu .top-item-container > a:hover + .sub-menu,
 #tb-frontmenu .sub-menu:hover {
@@ -83,7 +83,7 @@
 #tb-frontmenu > li.layout-3-1,
 #tb-frontmenu > li.layout-3-2,
 #tb-frontmenu > li.layout-3-3 {
-	width: 33.333%;
+	width: 33.333333%;
 }
 #tb-frontmenu > li.layout-2-2,
 #tb-frontmenu > li.layout-3-3 {
@@ -92,6 +92,10 @@
 #tb-frontmenu > li.layout-2-1,
 #tb-frontmenu > li.layout-3-1 {
 	clear: left;
+}
+#tb-frontmenu > li.layout-2-1,
+#tb-frontmenu > li.layout-3-1 {
+	clear: both;
 }
 #tb-frontmenu .top-item-container > a {
 	font-size: 1.5em;
@@ -103,6 +107,7 @@
 #tb-frontmenu img {
 	max-width: 100%;
 	height: auto;
+	display: block;
 }
 #tb-frontmenu a:not([href]) {
 	cursor: default;
