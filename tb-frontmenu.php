@@ -5,7 +5,7 @@
  * Description: a cool squared menu
  * Author: Twobeers
  * Author URI: http://www.twobeers.net/
- * Version: 1.0
+ * Version: 1.0.1
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -333,6 +333,7 @@ class TBFrontmenu {
 	 */
 	function settings_field_layout() {
 		?>
+
 		<div id="frontmenu-rows">
 			<?php
 			$count = 0;
@@ -352,6 +353,7 @@ class TBFrontmenu {
 			<span class="button-secondary" id="button-add-row2"><?php _e( '2-blocks row', 'tb_frontmenu' ) ?></span>
 			<span class="button-secondary" id="button-add-row3"><?php _e( '3-blocks row', 'tb_frontmenu' ) ?></span>
 		</p>
+
 		<?php
 	}
 

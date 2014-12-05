@@ -3,10 +3,12 @@
 #frontmenu-rows {
 	overflow: hidden;
 	color: #999;
+	max-width: 444px;
 }
 #frontmenu-rows .row {
-	float: left;
 	margin-bottom: 6px;
+	float: left;
+	clear: both;
 }
 body.js #frontmenu-rows .row:hover {
 	color: #fff;
@@ -14,28 +16,26 @@ body.js #frontmenu-rows .row:hover {
 body.js #frontmenu-rows .row:hover .item {
 	cursor: move;
 }
-.row-2 .item {
+.row .item {
 	display: inline-block;
-	width: 243px;
-	height: 137px;
 	background: #777;
-	margin-right: 6px;
-	line-height: 137px;
+	margin-left: 6px;
 	text-align: center;
 	font-size:2em;
 	vertical-align: top;
 }
-
+.row-2 .item {
+	width: 219px;
+	height: 123.1875px;
+	line-height: 137px;
+}
 .row-3 .item {
-	display: inline-block;
-	width: 160px;
-	height: 90px;
-	margin-right: 6px;
-	background: #777;
+	width: 144px;
+	height: 81px;
 	line-height: 90px;
-	text-align: center;
-	font-size:2em;
-	vertical-align: top;
+}
+.row .item:first-child {
+	margin-left: 0;
 }
 .remove-row {
 	position: absolute;
@@ -50,7 +50,7 @@ body.js #frontmenu-rows .row:hover .item {
 }
 
 #frontmenu-items {
-	width: 490px;
+	max-width: 444px;
 }
 
 #frontmenu-items > div {
@@ -177,7 +177,7 @@ div.ui-slider {
 	color: #333;
 	outline: 0 none;
 	transition: border-color 0.05s ease-in-out 0s;
-	width: 490px;
+	max-width: 444px;
 	line-height:1.8em;
 	height: 1.8em;
 	cursor: pointer;
@@ -280,4 +280,24 @@ h1 {
 }
 .wrap {
 	max-width: 1050px;
+}
+
+@media screen and (max-width: 520px) {
+	#frontmenu-rows .row {
+		margin-bottom: 3px;
+	}
+	.row .item {
+		margin-left: 3px;
+	}
+	.row-2 .item {
+		width: 121.55px;
+		height: 68.5px;
+		line-height: 68.5px;
+	}
+
+	.row-3 .item {
+		width: 80px;
+		height: 45px;
+		line-height: 45px;
+	}
 }
